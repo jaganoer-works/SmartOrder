@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SmartOrder プロジェクト 実践型カリキュラム
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## ✨ 概要
+**SmartOrder** - B2B 受発注クラウド API サービス
 
-## About Laravel
+目的: API + クラウドネイティブ + 認証技術を実践で習得し、ポートフォリオとして完成させる。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## テクノロジースタック
+- Laravel + Docker Compose
+- PostgreSQL
+- AWS Lambda + API Gateway
+- S3 / CloudFront
+- Terraform / GitHub Actions
+- OAuth2.0 / JWT 認証
+- OpenAPI / Swagger
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## リポジトリ構成
+```
+/project-root
+├── README.md
+├── docker-compose.yml
+├── Dockerfile
+├── docs/
+│   ├── architecture.md
+│   ├── api-spec.yaml
+│   └── security.md
+├── infrastructure/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+├── app/
+│   ├── Console/
+│   ├── Exceptions/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   └── Middleware/
+│   └── Models/
+├── bootstrap/
+├── config/
+├── database/
+│   ├── migrations/
+│   ├── seeders/
+│   └── factories/
+├── public/
+├── resources/
+├── routes/
+├── storage/
+├── tests/
+├── .github/
+│   └── workflows/
+└── LICENSE
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 開発環境セットアップ手順
 
-## Learning Laravel
+1. プロジェクトクローン
+```bash
+git clone https://github.com/【あなたのユーザー名】/smartorder.git
+cd smartorder
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Laravel プロジェクト作成
+```bash
+composer create-project --prefer-dist laravel/laravel .
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. .env ファイル作成
+```bash
+cp .env.example .env
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. .env ファイルの DB 設定
+```
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=smartorder
+DB_USERNAME=postgres
+DB_PASSWORD=password
+```
 
-## Laravel Sponsors
+5. アプリケーションキー生成
+```bash
+docker-compose run --rm app php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+6. マイグレーション実行
+```bash
+docker-compose run --rm app php artisan migrate
+```
 
-### Premium Partners
+7. Docker コンテナ起動
+```bash
+docker-compose up -d --build
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+8. アプリケーションにアクセス
+ブラウザで [http://localhost:8000](http://localhost:8000) にアクセス！
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 週次タスク
 
-## Code of Conduct
+| 週 | 内容 |
+|---|---|
+| **Week 1** | リポジトリ準備 (リポジトリ作成 / README / docs / Docker 環境構築) |
+| **Week 2** | API 設計書作成 (OpenAPI / AI レビュー) |
+| **Week 3** | インフラ設計 (Terraform / AWS 構成図 / CI 基盤) |
+| **Week 4** | CRUD API 実装 (注文 API / PostgreSQL / 動作確認) |
+| **Week 5** | 認証・セキュリティ (JWT / OAuth2 / WAF) |
+| **Week 6** | CI/CD & テスト (GitHub Actions / 単体テスト / デプロイ) |
+| **Week 7** | パフォーマンス & 監視 (CloudWatch / キャッシュ / 負荷診断) |
+| **Week 8** | アウトプット整理 (docs / 技術ブログ / 公開) |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🤖 AI 活用プロンプト集
+- "OpenAPI YAML を作成してください（Laravel API 用）"
+- "Terraform で AWS 環境（EC2 / RDS / S3）構成コードを生成してください"
+- "GitHub Actions で Laravel アプリケーションの CI/CD ワークフローを生成してください"
+- "AWS WAF の設計案と API Gateway の構成を作成してください（EC2 または ECS 構成想定）"
+- "注文 API の PHP Unit テストコードを生成してください（Laravel 用）"
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🌟 ゴール
+- 実務レベルのポートフォリオ完成
+- GitHub 公開 & 技術ブログ
+- 案件実戦レベルの準備完了
