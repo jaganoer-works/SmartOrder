@@ -20,6 +20,7 @@
 ├── README.md
 ├── docker-compose.yml
 ├── Dockerfile
+├── Makefile
 ├── .env.example
 ├── docs/
 │   ├── architecture.md
@@ -84,17 +85,17 @@ DB_PASSWORD=password
 
 5. アプリケーションキー生成
 ```bash
-docker-compose run --rm app php artisan key:generate
+make key-generate
 ```
 
 6. マイグレーション実行
 ```bash
-docker-compose run --rm app php artisan migrate
+make migrate
 ```
 
 7. Docker コンテナ起動
 ```bash
-docker-compose up -d --build
+make up
 ```
 
 8. アプリケーションにアクセス
@@ -102,9 +103,7 @@ docker-compose up -d --build
 
 9. プロジェクトボード作成（Issue 一括作成）
 ```bash
-cd scripts
-chmod +x create-issues.sh
-./create-issues.sh
+make issues
 ```
 
 10. Swagger UI にアクセスして API ドキュメント確認
@@ -113,8 +112,8 @@ chmod +x create-issues.sh
 その上で以下を実行します：
 
 ```bash
-docker-compose down
-docker-compose up -d --build
+make down
+make up
 ```
 
 ブラウザで [http://localhost:8080](http://localhost:8080) にアクセスすると、SmartOrder API ドキュメントが表示されます！
