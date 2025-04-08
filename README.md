@@ -107,6 +107,18 @@ chmod +x create-issues.sh
 ./create-issues.sh
 ```
 
+10. Swagger UI にアクセスして API ドキュメント確認
+
+まず、`docs/api-spec.yaml` がホスト側に存在することを確認してください。
+その上で以下を実行します：
+
+```bash
+docker-compose down
+docker-compose up -d --build
+```
+
+ブラウザで [http://localhost:8080](http://localhost:8080) にアクセスすると、SmartOrder API ドキュメントが表示されます！
+
 ---
 
 ## 📊 アーキテクチャ概要
