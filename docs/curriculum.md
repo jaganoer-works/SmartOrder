@@ -28,13 +28,26 @@
 │   ├── main.tf
 │   ├── variables.tf
 │   └── outputs.tf
-├── src/
-│   ├── handlers/
-│   ├── services/
-│   └── utils/
+├── app/
+│   ├── Console/
+│   ├── Exceptions/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   └── Middleware/
+│   └── Models/
+├── bootstrap/
+├── config/
+├── database/
+│   ├── migrations/
+│   ├── seeders/
+│   └── factories/
+├── public/
+├── resources/
+├── routes/
+├── storage/
+├── tests/
 ├── .github/
 │   └── workflows/
-├── tests/
 └── LICENSE
 ```
 
