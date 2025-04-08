@@ -29,6 +29,8 @@
 │   ├── main.tf
 │   ├── variables.tf
 │   └── outputs.tf
+├── scripts/
+│   └── create-issues.sh
 ├── app/
 │   ├── Console/
 │   ├── Exceptions/
@@ -97,6 +99,13 @@ docker-compose up -d --build
 
 8. アプリケーションにアクセス
 ブラウザで [http://localhost:8000](http://localhost:8000) にアクセス！
+
+9. プロジェクトボード作成（Issue 一括作成）
+```bash
+cd scripts
+chmod +x create-issues.sh
+./create-issues.sh
+```
 
 ---
 
