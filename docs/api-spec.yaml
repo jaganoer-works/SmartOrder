@@ -1,23 +1,22 @@
 openapi: 3.0.3
 info:
     title: SmartOrder API
-    description: SmartOrder - B2B 受発注クラウドサービスの API 仕様書
     version: 1.0.0
+    description: SmartOrder の注文 API ドキュメント
+
 servers:
     - url: http://localhost:8000/api
       description: ローカル開発環境
-    - url: https://api.smartorder.example.com
-      description: 本番環境
 
 paths:
     /orders:
         get:
-            summary: 注文一覧を取得する
+            summary: 注文一覧を取得
             tags:
                 - Orders
             responses:
                 "200":
-                    description: 成功
+                    description: 正常に取得
                     content:
                         application/json:
                             schema:
@@ -25,7 +24,7 @@ paths:
                                 items:
                                     $ref: "#/components/schemas/Order"
         post:
-            summary: 新しい注文を作成する
+            summary: 新しい注文を作成
             tags:
                 - Orders
             requestBody:
@@ -33,7 +32,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/NewOrder"
+                            $ref: "#/components/schemas/OrderRequest"
             responses:
                 "201":
                     description: 作成成功
@@ -41,25 +40,12 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Order"
-
-    /orders/{orderId}:
-        get:
-            summary: 注文詳細を取得する
-            tags:
-                - Orders
-            parameters:
-                - name: orderId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: 成功
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Order"
+                "400":
+                    description: リクエストエラー
+                "422":
+                    description: バリデーションエラー
+                "500":
+                    description: サーバーエラー
 
 components:
     schemas:
@@ -67,7 +53,7 @@ components:
             type: object
             properties:
                 id:
-                    type: string
+                    type: integer
                 customerName:
                     type: string
                 product:
@@ -76,21 +62,14 @@ components:
                     type: integer
                 price:
                     type: number
-                status:
-                    type: string
-                    enum:
-                        - pending
-                        - confirmed
-                        - shipped
-                        - completed
+                    format: float
                 createdAt:
                     type: string
                     format: date-time
                 updatedAt:
                     type: string
                     format: date-time
-
-        NewOrder:
+        OrderRequest:
             type: object
             required:
                 - customerName
@@ -104,5 +83,8 @@ components:
                     type: string
                 quantity:
                     type: integer
+                    minimum: 1
                 price:
                     type: number
+                    format: float
+                    minimum: 0
