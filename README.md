@@ -20,6 +20,7 @@
 ├── README.md
 ├── docker-compose.yml
 ├── Dockerfile
+├── .env.example
 ├── docs/
 │   ├── architecture.md
 │   ├── api-spec.yaml
@@ -96,6 +97,34 @@ docker-compose up -d --build
 
 8. アプリケーションにアクセス
 ブラウザで [http://localhost:8000](http://localhost:8000) にアクセス！
+
+---
+
+## 📊 アーキテクチャ概要
+
+SmartOrder プロジェクトの全体像は以下の通りです：
+
+### システム構成図
+- ユーザー → API Gateway → Laravel アプリケーション
+- Laravel アプリケーション → PostgreSQL (RDS 予定)
+- Laravel アプリケーション → S3 (ファイル保存)
+- CloudFront 経由で静的ファイル配信
+- AWS WAF によるセキュリティ対策
+- Terraform でインフラ管理
+- GitHub Actions で CI/CD 自動化
+- CloudWatch による監視とログ管理
+
+### アプリケーション構成
+- **Laravel** : API サーバー、認証、CRUD 処理
+- **PostgreSQL** : データ永続化
+- **Docker Compose** : ローカル開発環境
+- **Terraform** : AWS インフラ自動化
+- **GitHub Actions** : CI/CD パイプライン
+
+### セキュリティ
+- JWT / OAuth2.0 による API 認証
+- WAF / API Gateway で外部からの攻撃防御
+- .env による環境変数管理
 
 ---
 
